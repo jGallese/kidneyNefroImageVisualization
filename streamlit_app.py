@@ -14,7 +14,7 @@ if not os.path.exists('/usr/lib/x86_64-linux-gnu/libopenslide.so.0'):
     subprocess.run([
         'sudo', 'apt-get', 'update', '-y', '&&',
         'sudo', 'apt-get', 'install', '-y', 'libopenslide-dev', 'openslide-tools', 'libjpeg-dev', 'libtiff-dev'
-    ])
+    ], check=True)
 
 import openslide
 cargar_imagen_page = st.Page("carga_imagen.py", title="Carga Imagen", icon=":material/upload:")
