@@ -4,18 +4,22 @@ import tempfile
 import os
 from dotenv import load_dotenv
 from openslide_utils import load_slide_image, load_slide_region, get_best_level
+import subprocess
+if os.name == 'nt':
+    load_dotenv()  # Cargar variables de entorno desde .env
+    OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
+    from ctypes import cdll
 
+    dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
+    cdll.LoadLibrary(dll_path)
 
-load_dotenv()  # Cargar variables de entorno desde .env
-OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
-print("OpenSlide Path:", OPENSLIDE_PATH)
-from ctypes import cdll
+if not os.path.exists('/usr/lib/x86_64-linux-gnu/libopenslide.so.0') and not os.name =='nt':
+    subprocess.run([
+        'sudo', 'apt-get', 'update', '-y', '&&',
+        'sudo', 'apt-get', 'install', '-y', 'libopenslide-dev', 'openslide-tools', 'libjpeg-dev', 'libtiff-dev'
+    ], check=True)
 
-dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
-cdll.LoadLibrary(dll_path)
-
-from openslide import open_slide
-
+import openslide
 # Subtítulo para la selección de imágenes
 st.header("Selección de Imagen")
 
