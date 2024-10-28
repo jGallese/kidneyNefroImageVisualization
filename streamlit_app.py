@@ -1,5 +1,12 @@
 import streamlit as st
+import os
+from dotenv import load_dotenv
+load_dotenv()  # Cargar variables de entorno desde .env
+OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
+from ctypes import cdll
 
+dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
+cdll.LoadLibrary(dll_path)
 
 cargar_imagen_page = st.Page("carga_imagen.py", title="Carga Imagen", icon=":material/upload:")
 

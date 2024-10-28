@@ -1,12 +1,10 @@
 import numpy as np
 import os
-
 import openslide
 from dotenv import load_dotenv
 
 load_dotenv()  # Cargar variables de entorno desde .env
 OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
-print("OpenSlide Path:", OPENSLIDE_PATH)
 from ctypes import cdll
 
 dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
