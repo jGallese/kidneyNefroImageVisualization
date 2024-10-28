@@ -22,21 +22,34 @@ if 'uploaded_slide' in st.session_state:
     st.image(region_small_np)
     # Crear seis sliders para los valores de la matriz TRRef
     st.sidebar.header("Ajustes de TRRef")
-
-    trref_00 = st.sidebar.slider("TRRef[0,0]", min_value=0.0, max_value=1.0, value=0.7, step=0.01)
-    trref_01 = st.sidebar.slider("TRRef[0,1]", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
-    trref_10 = st.sidebar.slider("TRRef[1,0]", min_value=0.0, max_value=1.0, value=0.15, step=0.01)
-    trref_11 = st.sidebar.slider("TRRef[1,1]", min_value=0.0, max_value=1.0, value=0.9, step=0.01)
-    trref_20 = st.sidebar.slider("TRRef[2,0]", min_value=0.0, max_value=1.0, value=0.2, step=0.01)
-    trref_21 = st.sidebar.slider("TRRef[2,1]", min_value=0.0, max_value=1.0, value=0.8, step=0.01)
+    trref_00 = st.sidebar.slider("Coeficiente Colágeno (Colorante 1 a 1)", min_value=0.0, max_value=1.0, value=0.7,
+                                 step=0.01)
+    trref_01 = st.sidebar.slider("Coeficiente Colorante 1 a Otro (Colorante 1 a 2)", min_value=0.0, max_value=1.0,
+                                 value=0.1, step=0.01)
+    trref_10 = st.sidebar.slider("Coeficiente Otro a Colágeno (Colorante 2 a 1)", min_value=0.0, max_value=1.0,
+                                 value=0.15, step=0.01)
+    trref_11 = st.sidebar.slider("Coeficiente Otro (Colorante 2 a 2)", min_value=0.0, max_value=1.0, value=0.9,
+                                 step=0.01)
+    trref_20 = st.sidebar.slider("Coeficiente Tercer Colorante a Colágeno (Colorante 3 a 1)", min_value=0.0,
+                                 max_value=1.0, value=0.2, step=0.01)
+    trref_21 = st.sidebar.slider("Coeficiente Tercer Colorante a Otro (Colorante 3 a 2)", min_value=0.0, max_value=1.0,
+                                 value=0.8, step=0.01)
 
     # Crear la matriz TRRef con los valores seleccionados en los sliders
     TRRef = np.array([[trref_00, trref_01],
                       [trref_10, trref_11],
                       [trref_20, trref_21]])
 
+    maxCRef_0 = st.sidebar.slider("Concentración máxima de colágeno (maxCRef[0])", min_value=0.0, max_value=5.0,
+                                  value=2.0, step=0.1)
+    maxCRef_1 = st.sidebar.slider("Concentración máxima de otro colorante (maxCRef[1])", min_value=0.0, max_value=5.0,
+                                  value=1.0, step=0.1)
+
+    # Crear el array maxCRef con los valores seleccionados en los sliders
+    maxCRef = np.array([maxCRef_0, maxCRef_1])
+
     # Realizar la normalización con los valores ajustados
-    norm_img, collagen_img, other_img = norm_Masson(region_small_np, TRRef, Io=240, alpha=1, beta=0.20)
+    norm_img, collagen_img, other_img = norm_Masson(region_small_np, TRRef, maxCRef, Io=240, alpha=1, beta=0.20)
 
     # Crear dos columnas
     col1, col2 = st.columns(2)
@@ -170,7 +183,7 @@ if 'uploaded_slide' in st.session_state:
                 st.write(f"Esquina inferior derecha: ({bottom_right_x_0}, {bottom_right_y_0})")
                 st.image(region_image, caption=f"Región seleccionada en nivel 0")
 
-                norm_img, collagen_img, other_img = norm_Masson(region_image_np, TRRef, Io=240, alpha=1, beta=0.20)
+                norm_img, collagen_img, other_img = norm_Masson(region_image_np, TRRef,maxCRef, Io=240, alpha=1, beta=0.20)
                 # Crear dos columnas
                 col1, col2 = st.columns(2)
 

@@ -168,7 +168,7 @@ def norm_Masson(img, Io=240, alpha=1, beta=0.15):
 
     return (Inorm, Collagen, Other)
 
-def norm_Masson_modified(img, TRRef, Io=240, alpha=1, beta=0.15):
+def norm_Masson_modified(img, TRRef, maxCRef,  Io=240, alpha=1, beta=0.15):
     """
         Normalizes an image based on the Masson staining method and separates its components.
 
@@ -179,6 +179,7 @@ def norm_Masson_modified(img, TRRef, Io=240, alpha=1, beta=0.15):
         Parameters:
             img (numpy.ndarray): A 3D NumPy array representing the input image with shape (height, width, channels).
             TRRef (numpy.ndarray): A 2D array of reference transformation values for the stains, with shape (3, 2).
+            maxCRef (numpy.ndarray): Un array 1D de concentraciones máximas de colorantes, con forma (2,).
             Io (float, optional): The intensity of light used during imaging. Defaults to 240.
             alpha (float, optional): The percentile for determining the range of angles used in normalization. Defaults to 1.
             beta (float, optional): The threshold below which pixels are considered transparent and excluded. Defaults to 0.15.
@@ -189,8 +190,6 @@ def norm_Masson_modified(img, TRRef, Io=240, alpha=1, beta=0.15):
                 - numpy.ndarray: The collagen component extracted from the image.
                 - numpy.ndarray: The other stain component extracted from the image.
         """
-    # reference maximum stain concentrations for Masson
-    maxCRef = np.array([2.0, 2])
 
     # extract the height, width and num of channels of image
     h, w, c = img.shape
