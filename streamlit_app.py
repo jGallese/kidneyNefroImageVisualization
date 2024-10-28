@@ -10,7 +10,7 @@ if os.name == 'nt':
     dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
     cdll.LoadLibrary(dll_path)
 
-if not os.path.exists('/usr/lib/x86_64-linux-gnu/libopenslide.so.0'):
+if not os.path.exists('/usr/lib/x86_64-linux-gnu/libopenslide.so.0') and not os.name =='nt':
     subprocess.run([
         'sudo', 'apt-get', 'update', '-y', '&&',
         'sudo', 'apt-get', 'install', '-y', 'libopenslide-dev', 'openslide-tools', 'libjpeg-dev', 'libtiff-dev'
