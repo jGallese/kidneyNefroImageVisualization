@@ -1,15 +1,15 @@
 # The path can also be read from a config file, etc.
 import tempfile
 
-OPENSLIDE_PATH = r'C:\Dev\openslide-bin-4.0.0.4-windows-x64\bin'
 import os
 
-if hasattr(os, 'add_dll_directory'):
-    # Windows
-    with os.add_dll_directory(OPENSLIDE_PATH):
+if os.name == 'nt':
+    if hasattr(os, 'add_dll_directory'):
+        # Windows
+        with os.add_dll_directory('OPENSLIDE_PATH'):
+            import openslide
+    else:
         import openslide
-else:
-    import openslide
 
 from openslide import open_slide
 from PIL import Image

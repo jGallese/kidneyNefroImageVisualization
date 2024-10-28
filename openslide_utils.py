@@ -3,12 +3,13 @@ import os
 import openslide
 from dotenv import load_dotenv
 
-load_dotenv()  # Cargar variables de entorno desde .env
-OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
-from ctypes import cdll
+if os.name == 'nt':
+    load_dotenv()  # Cargar variables de entorno desde .env
+    OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
+    from ctypes import cdll
 
-dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
-cdll.LoadLibrary(dll_path)
+    dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
+    cdll.LoadLibrary(dll_path)
 def load_slide_image(slide_path):
 
     """
