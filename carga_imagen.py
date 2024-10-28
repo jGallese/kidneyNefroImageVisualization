@@ -20,6 +20,7 @@ if not os.path.exists('/usr/lib/x86_64-linux-gnu/libopenslide.so.0') and not os.
     ], check=True)
 
 import openslide
+from openslide import open_slide
 # Subtítulo para la selección de imágenes
 st.header("Selección de Imagen")
 
