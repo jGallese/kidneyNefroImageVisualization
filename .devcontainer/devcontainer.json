@@ -16,22 +16,16 @@
       ]
     }
   },
-  "updateContentCommand": "[ -f packages.txt ] && sudo apt update && sudo apt upgrade -y && sudo xargs apt install -y <packages.txt; [ -f requirements.txt ] && pip3 install --user -r requirements.txt; pip3 install --user streamlit; echo '✅ Packages installed and Requirements met'",
-  "postCreateCommand": [
-    "sudo apt-get update && sudo apt-get install -y openslide-tools libopenslide-dev",
-    "sudo apt-get update && sudo apt-get install -y libjpeg-dev libtiff-dev libglib2.0-dev libxml2-dev \\\n  zlib1g-dev openslide-tools wget\nwget https://github.com/openslide/openslide/releases/download/v3.4.1/openslide-3.4.1.tar.gz\ntar -xzf openslide-3.4.1.tar.gz\ncd openslide-3.4.1\n./configure\nmake\nsudo make install\nldconfig",
-    "pip install openslide-python"
-  ],
+  "updateContentCommand": "[ -f packages.txt ] && sudo apt update && sudo apt upgrade -y && sudo xargs apt install -y < packages.txt; [ -f requirements.txt ] && pip3 install --user -r requirements.txt; pip3 install --user streamlit openslide-python; echo '✅ Packages installed and Requirements met'",
+  "postCreateCommand": "bash .devcontainer/setup_openslide.sh",
   "postAttachCommand": {
     "server": "streamlit run streamlit_app.py --server.enableCORS false --server.enableXsrfProtection false"
   },
+  "forwardPorts": [8501],
   "portsAttributes": {
     "8501": {
       "label": "Application",
       "onAutoForward": "openPreview"
     }
-  },
-  "forwardPorts": [
-    8501
-  ]
+  }
 }
