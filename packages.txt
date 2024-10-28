@@ -1,0 +1,4 @@
+libopenslide-dev
+openslide-tools
+libjpeg-dev
+libtiff-dev
