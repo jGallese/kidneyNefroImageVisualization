@@ -17,12 +17,12 @@ def load_slide_from_path(slide_path):
 
 # Cache para procesar la imagen
 @st.cache_data
-def process_slide_image(slide):
+def process_slide_image(_slide):
     """
     Procesa la imagen del slide y devuelve la versión numpy.
     """
-    best_level = get_best_level(slide)
-    return load_slide_region(slide, best_level)
+    best_level = get_best_level(_slide)
+    return load_slide_region(_slide, best_level)
 
 
 # Cache para manejar el archivo temporal
@@ -88,7 +88,6 @@ def main():
             except Exception as e:
                 st.error(
                     "Error al cargar la imagen",
-                    help=f"Detalles del error: {str(e)}"
                 )
                 # Limpiar caches en caso de error
                 create_temp_file.clear()
