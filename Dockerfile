@@ -10,6 +10,11 @@ RUN apt-get update && \
     build-essential \
     curl \
     software-properties-common \
+    libopenslide-dev \
+    openslide-tools \
+    libjpeg-dev \
+    libtiff-dev \
+    python3-opencv \
     git && \
     rm -rf /var/lib/apt/lists/* /tmp/packages.txt
 

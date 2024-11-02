@@ -8,13 +8,17 @@ import cv2
 from openslide_utils import load_slide_image, load_slide_region, get_best_level
 from normalization_utils import norm_Masson_modified as norm_Masson
 
+@st.cache
+def get_region_image(slide, top_left_x_0, top_left_y_0, region_width, region_height):
+    return slide.read_region((top_left_x_0, top_left_y_0), 0, (region_width, region_height)).convert('RGB')
+
 
 if 'uploaded_slide' in st.session_state:
     slide = st.session_state.uploaded_slide
     # Subtítulo para las máscaras y contornos coloreados
     st.header("Análisis de Normalización")
 
-    region_small = slide.read_region((8000, 4000), 0, (5000, 5000))
+    region_small = slide.read_region((10000, 4000), 0, (5000, 5000))
     region_small_RGB = region_small.convert('RGB')
     region_small_np = np.array(region_small_RGB)
 
@@ -168,11 +172,8 @@ if 'uploaded_slide' in st.session_state:
                 region_height = bottom_right_y_0 - top_left_y_0
 
                 # Leer la región seleccionada en nivel 0
-                region_image = slide.read_region(
-                    (top_left_x_0, top_left_y_0), 0, (region_width, region_height)
-                )
-                region_image_RGB = region_image.convert('RGB')
-                region_image_np = np.array(region_image_RGB)
+                region_image = get_region_image(slide, top_left_x_0, top_left_y_0, region_width, region_height)
+                region_image_np = np.array(region_image)
 
                 # Mostrar resultados
                 st.write(f"Coordenadas en nivel {best_level}:")
