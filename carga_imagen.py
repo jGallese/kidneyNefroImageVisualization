@@ -1,23 +1,7 @@
 import streamlit as st
 import tempfile
 
-import os
-from dotenv import load_dotenv
 from openslide_utils import load_slide_image, load_slide_region, get_best_level
-import subprocess
-# if os.name == 'nt':
-#     load_dotenv()  # Cargar variables de entorno desde .env
-#     OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
-#     from ctypes import cdll
-#
-#     dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
-#     cdll.LoadLibrary(dll_path)
-#
-# if not os.path.exists('/usr/lib/x86_64-linux-gnu/libopenslide.so.0') and not os.name =='nt':
-#     subprocess.run([
-#         'sudo', 'apt-get', 'update', '-y', '&&',
-#         'sudo', 'apt-get', 'install', '-y', 'libopenslide-dev', 'openslide-tools', 'libjpeg-dev', 'libtiff-dev'
-#     ], check=True)
 
 import openslide
 from openslide import open_slide
