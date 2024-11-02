@@ -1,13 +1,13 @@
-FROM python:3.12
+FROM python:3.12-slim
 
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-COPY packages.txt /tmp/packages.txt
+# Cambiar el repositorio a un espejo alternativo
+RUN sed -i 's/deb.debian.org/mirror.us.leaseweb.net/g' /etc/apt/sources.list
 
-
-# Instalar paquetes desde packages.txt y otros paquetes adicionales
-RUN apt-get update && \
-    apt-get install -y \
+# Actualizar e instalar dependencias
+RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     software-properties-common \
@@ -17,16 +17,14 @@ RUN apt-get update && \
     libtiff-dev \
     python3-opencv \
     git && \
-    rm -rf /var/lib/apt/lists/* /tmp/packages.txt
+    rm -rf /var/lib/apt/lists/*
 
-# Clonar el repositorio
-RUN git clone https://github.com/jGallese/kidneyNefroImageVisualization.git .
+# Copiar el resto de la aplicación
+COPY . .
 
 # Instalar dependencias de Python
-RUN pip3 install -r requirements.txt
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8501
-
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
-
-ENTRYPOINT ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Comando para ejecutar tu aplicación
+CMD ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
