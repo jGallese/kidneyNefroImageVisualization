@@ -94,6 +94,3 @@ def main():
                 create_temp_file.clear()
                 process_slide_image.clear()
 
-
-if __name__ == "__main__":
-    main()

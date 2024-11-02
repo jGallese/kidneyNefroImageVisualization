@@ -230,6 +230,3 @@ def main():
             "Análisis de Región Seleccionada"
         )
 
-
-if __name__ == "__main__":
-    main()
