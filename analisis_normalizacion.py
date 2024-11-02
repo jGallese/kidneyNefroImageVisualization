@@ -15,9 +15,9 @@ def initialize_slide_view(_slide):
     """
     Inicializa la vista del slide y mantiene los recursos en caché.
     """
-    best_level = slide.get_best_level_for_downsample(16)
-    level_dimensions = slide.level_dimensions[best_level]
-    image = slide.read_region((0, 0), best_level, level_dimensions)
+    best_level = _slide.get_best_level_for_downsample(16)
+    level_dimensions = _slide.level_dimensions[best_level]
+    image = _slide.read_region((0, 0), best_level, level_dimensions)
     return best_level, level_dimensions, np.array(image.convert("RGB"))
 
 
