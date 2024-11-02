@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY packages.txt /tmp/packages.txt
 
+
 # Instalar paquetes desde packages.txt y otros paquetes adicionales
 RUN apt-get update && \
     apt-get install -y \
