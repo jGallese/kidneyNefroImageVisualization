@@ -2,19 +2,19 @@ import streamlit as st
 import os
 from dotenv import load_dotenv
 import subprocess
-if os.name == 'nt':
-    load_dotenv()  # Cargar variables de entorno desde .env
-    OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
-    from ctypes import cdll
-
-    dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
-    cdll.LoadLibrary(dll_path)
-
-if not os.path.exists('/usr/lib/x86_64-linux-gnu/libopenslide.so.0') and not os.name =='nt':
-    subprocess.run([
-        'sudo', 'apt-get', 'update', '-y', '&&',
-        'sudo', 'apt-get', 'install', '-y', 'libopenslide-dev', 'openslide-tools', 'libjpeg-dev', 'libtiff-dev'
-    ], check=True)
+# if os.name == 'nt':
+#     load_dotenv()  # Cargar variables de entorno desde .env
+#     OPENSLIDE_PATH = os.getenv("OPENSLIDE_PATH")
+#     from ctypes import cdll
+#
+#     dll_path = os.path.join(OPENSLIDE_PATH, 'libopenslide-1.dll')
+#     cdll.LoadLibrary(dll_path)
+#
+# if not os.path.exists('/usr/lib/x86_64-linux-gnu/libopenslide.so.0') and not os.name =='nt':
+#     subprocess.run([
+#         'sudo', 'apt-get', 'update', '-y', '&&',
+#         'sudo', 'apt-get', 'install', '-y', 'libopenslide-dev', 'openslide-tools', 'libjpeg-dev', 'libtiff-dev'
+#     ], check=True)
 
 import openslide
 cargar_imagen_page = st.Page("carga_imagen.py", title="Carga Imagen", icon=":material/upload:")

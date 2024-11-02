@@ -14,7 +14,7 @@ if 'uploaded_slide' in st.session_state:
     # Subtítulo para las máscaras y contornos coloreados
     st.header("Análisis de Normalización")
 
-    region_small = slide.read_region((1000, 2000), 0, (2000, 2000))
+    region_small = slide.read_region((8000, 4000), 0, (5000, 5000))
     region_small_RGB = region_small.convert('RGB')
     region_small_np = np.array(region_small_RGB)
 
