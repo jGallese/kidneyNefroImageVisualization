@@ -55,7 +55,6 @@ def main():
             create_temp_file.clear()
             process_slide_image.clear()
             del st.session_state['uploaded_slide']
-            st.experimental_rerun()
 
     else:
         uploaded_file = st.file_uploader(

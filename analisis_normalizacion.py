@@ -179,22 +179,6 @@ def main():
     best_level, level_dimensions, background_image = initialize_slide_view(slide)
     tr_ref_values, max_c_ref, min_val, max_val = create_sidebar_controls()
 
-    # Procesar región inicial
-    region_small_np = get_initial_region(slide)
-    st.image(region_small_np)
-
-    # Realizar normalización inicial
-    norm_img, collagen_img, other_img = perform_masson_normalization(
-        region_small_np, tr_ref_values, max_c_ref
-    )
-    display_images(region_small_np, norm_img, collagen_img, other_img)
-
-    # Procesar máscaras
-    normalized_img, mask, result = process_image_masks(collagen_img, min_val, max_val)
-
-    st.image(normalized_img, caption="Imagen Normalizada", use_column_width=True)
-    st.image(mask, caption=f"Máscara (valores entre {min_val} y {max_val})", use_column_width=True)
-    st.image(result, caption="Resultado con máscara aplicada", use_column_width=True)
 
     # Configuración del canvas
     st.title("Selecciona un punto en la imagen")
