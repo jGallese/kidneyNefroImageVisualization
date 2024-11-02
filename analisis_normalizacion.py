@@ -11,7 +11,7 @@ from normalization_utils import norm_Masson_modified as norm_Masson
 
 # Caches y funciones de utilidad
 @st.cache_resource
-def initialize_slide_view(slide):
+def initialize_slide_view(_slide):
     """
     Inicializa la vista del slide y mantiene los recursos en caché.
     """
