@@ -25,7 +25,7 @@ RUN git clone https://github.com/jGallese/kidneyNefroImageVisualization.git .
 # Instalar dependencias de Python
 RUN pip3 install -r requirements.txt
 
-EXPOSE 80
+EXPOSE 8501
 
 HEALTHCHECK CMD curl --fail http://localhost:80/_stcore/health
 
